@@ -95,39 +95,27 @@
     .brand {
       display: flex;
       align-items: center;
-      gap: 18px;
       text-transform: uppercase;
-    }
-
-    .ap-mark {
-      width: 58px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      font-size: 30px;
-      line-height: 1;
-      font-weight: 700;
-      letter-spacing: -0.12em;
-      color: var(--ink);
-      transform: scaleX(1.3);
     }
 
     .brand-text {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 7px;
     }
 
     .brand-text strong {
-      font-size: 13px;
-      letter-spacing: 0.26em;
-      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: 0.32em;
+      font-weight: 600;
+      line-height: 1;
     }
 
     .brand-text span {
-      font-size: 9px;
+      font-size: 10px;
       letter-spacing: 0.34em;
       color: var(--brown);
+      line-height: 1;
     }
 
     .nav {
@@ -992,7 +980,8 @@
 
     @media (max-width: 640px) {
       .header {
-        height: 76px;
+        height: auto;
+        min-height: 76px;
         padding-top: 18px;
         padding-bottom: 18px;
       }
@@ -1005,11 +994,6 @@
       .brand-text span {
         font-size: 8px;
         letter-spacing: 0.22em;
-      }
-
-      .ap-mark {
-        width: 42px;
-        font-size: 26px;
       }
 
       .hero {
@@ -1091,8 +1075,6 @@
 
   <header class="header">
     <a href="#" class="brand" aria-label="Inicio Abraham Peyret">
-      <div class="ap-mark">ap</div>
-
       <div class="brand-text">
         <strong>Abraham Peyret</strong>
         <span>Design · Hecho en México</span>
