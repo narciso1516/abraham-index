@@ -78,18 +78,16 @@
       opacity: 0.75;
     }
 
-    /* HEADER */
-
     .header {
       position: fixed;
       inset: 0 0 auto 0;
-      min-height: 88px;
-      padding: 24px 56px;
+      min-height: 86px;
+      padding: 22px 56px;
       z-index: 100;
       display: grid;
-      grid-template-columns: minmax(260px, 0.9fr) auto minmax(260px, 0.9fr);
+      grid-template-columns: minmax(280px, 1fr) auto minmax(180px, 1fr);
       align-items: center;
-      background: rgba(255, 255, 255, 0.88);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--soft-line);
     }
@@ -125,7 +123,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 42px;
+      gap: 48px;
       font-size: 10px;
       letter-spacing: 0.24em;
       text-transform: uppercase;
@@ -155,7 +153,7 @@
 
     .nav .nav-button {
       border: 1px solid var(--ink);
-      padding: 13px 18px;
+      padding: 14px 22px;
       transition: all 0.35s ease;
     }
 
@@ -230,16 +228,14 @@
       transform: translateY(0);
     }
 
-    /* HERO */
-
     .hero {
       min-height: 100vh;
-      padding: 138px 46px 60px;
+      padding: 136px 46px 60px;
       position: relative;
       overflow: hidden;
       display: grid;
       grid-template-rows: auto 1fr auto;
-      gap: 44px;
+      gap: 58px;
       background: #ffffff;
     }
 
@@ -251,7 +247,7 @@
       border-radius: 50%;
       right: -320px;
       bottom: -300px;
-      background: radial-gradient(circle, rgba(138, 115, 95, 0.12), transparent 66%);
+      background: radial-gradient(circle, rgba(138, 115, 95, 0.11), transparent 66%);
       pointer-events: none;
     }
 
@@ -259,20 +255,20 @@
       position: relative;
       z-index: 3;
       text-align: center;
-      max-width: 1320px;
+      max-width: 1180px;
       margin: 0 auto;
-      padding-top: 12px;
+      padding-top: 28px;
     }
 
     .universe-label {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 28px;
-      margin-bottom: 42px;
+      gap: 30px;
+      margin-bottom: 46px;
       font-size: 11px;
       line-height: 1.2;
-      letter-spacing: 0.46em;
+      letter-spacing: 0.48em;
       text-transform: uppercase;
       color: var(--brown);
       font-weight: 500;
@@ -280,7 +276,7 @@
 
     .universe-label .divider-dot {
       width: 1px;
-      height: 34px;
+      height: 38px;
       border-radius: 0;
       background: linear-gradient(
         180deg,
@@ -294,11 +290,11 @@
 
     .hero-logos-row {
       display: grid;
-      grid-template-columns: minmax(180px, 1fr) 1px minmax(220px, 1fr);
+      grid-template-columns: minmax(240px, 1fr) 1px minmax(300px, 1fr);
       align-items: center;
       justify-items: center;
-      column-gap: clamp(44px, 7vw, 110px);
-      margin: 0 auto 52px;
+      column-gap: clamp(56px, 8vw, 128px);
+      margin: 0 auto 58px;
       width: min(980px, 100%);
       position: relative;
     }
@@ -306,13 +302,13 @@
     .hero-logos-row::after {
       content: "";
       width: 1px;
-      height: 128px;
+      height: 150px;
       grid-column: 2;
       grid-row: 1;
       background: linear-gradient(
         180deg,
         transparent,
-        rgba(17, 19, 20, 0.22),
+        rgba(17, 19, 20, 0.2),
         transparent
       );
     }
@@ -320,7 +316,7 @@
     .hero-logo {
       display: block;
       object-fit: contain;
-      filter: contrast(1.14);
+      filter: contrast(1.16);
       opacity: 1;
       transition: transform 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
     }
@@ -331,47 +327,46 @@
     }
 
     .hero-logo-ap {
-      width: clamp(170px, 15vw, 250px);
+      width: clamp(180px, 15vw, 250px);
       max-height: 160px;
       grid-column: 1;
     }
 
     .hero-logo-signature {
-      width: clamp(250px, 23vw, 390px);
-      max-height: 160px;
+      width: clamp(280px, 24vw, 420px);
+      max-height: 165px;
       grid-column: 3;
     }
 
     .hero-title-text {
       text-align: center;
+      margin-top: 4px;
     }
 
     .hero h1 {
       font-family: var(--sans);
-      font-size: clamp(38px, 5.4vw, 84px);
-      line-height: 1.02;
+      font-size: clamp(42px, 5vw, 78px);
+      line-height: 1.04;
       font-weight: 500;
-      letter-spacing: 0.045em;
+      letter-spacing: 0.055em;
       text-transform: uppercase;
-      max-width: 980px;
+      max-width: 960px;
       margin: 0 auto;
     }
 
     .hero h1 span {
       display: block;
-      letter-spacing: 0.025em;
+      letter-spacing: 0.038em;
     }
 
     .hero-subtitle {
-      max-width: 880px;
-      margin: 34px auto 0;
+      max-width: 920px;
+      margin: 38px auto 0;
       font-size: 18px;
-      line-height: 1.75;
+      line-height: 1.8;
       color: var(--muted);
       letter-spacing: 0.01em;
     }
-
-    /* TARJETAS */
 
     .hero-universes {
       position: relative;
@@ -461,6 +456,8 @@
       align-items: flex-start;
       gap: 18px;
       margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
     }
 
     .universe-number {
@@ -469,21 +466,41 @@
       text-transform: uppercase;
       color: var(--brown);
       font-weight: 500;
+      max-width: 70%;
     }
 
-    .universe-symbol {
-      font-size: 38px;
-      line-height: 0.8;
-      font-family: Georgia, "Times New Roman", serif;
-      opacity: 0.44;
+    .card-logo-wrap {
+      width: 96px;
+      height: 52px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      opacity: 0.9;
+      transform: translateY(-4px);
     }
 
-    .signature-symbol {
-      font-family: cursive;
-      font-size: 40px;
-      letter-spacing: -0.08em;
-      transform: rotate(-5deg);
+    .card-logo {
+      display: block;
+      object-fit: contain;
+      filter: contrast(1.12);
       opacity: 0.82;
+      transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
+    }
+
+    .card-logo-ap {
+      width: 78px;
+      max-height: 48px;
+    }
+
+    .card-logo-signature {
+      width: 96px;
+      max-height: 48px;
+    }
+
+    .universe-card:hover .card-logo {
+      opacity: 1;
+      filter: contrast(1.2);
+      transform: translateY(-2px) scale(1.04);
     }
 
     .universe-type {
@@ -496,6 +513,8 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: rgba(17, 19, 20, 0.68);
+      position: relative;
+      z-index: 2;
     }
 
     .universe-card h2 {
@@ -505,6 +524,8 @@
       letter-spacing: 0.018em;
       text-transform: uppercase;
       max-width: 680px;
+      position: relative;
+      z-index: 2;
     }
 
     .universe-card h2 span {
@@ -519,6 +540,8 @@
       line-height: 1.72;
       color: rgba(17, 19, 20, 0.74);
       letter-spacing: 0.005em;
+      position: relative;
+      z-index: 2;
     }
 
     .universe-note {
@@ -531,6 +554,8 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--brown);
+      position: relative;
+      z-index: 2;
     }
 
     .tag-row {
@@ -539,6 +564,8 @@
       gap: 9px;
       margin-top: 26px;
       max-width: 620px;
+      position: relative;
+      z-index: 2;
     }
 
     .tag-row span {
@@ -561,6 +588,8 @@
       font-size: 10px;
       letter-spacing: 0.25em;
       text-transform: uppercase;
+      position: relative;
+      z-index: 2;
     }
 
     .arrow-circle {
@@ -594,8 +623,6 @@
       color: var(--brown);
     }
 
-    /* MARQUEE */
-
     .marquee {
       background: #ffffff;
       border-top: 1px solid var(--line);
@@ -616,8 +643,6 @@
       text-transform: uppercase;
       color: var(--brown);
     }
-
-    /* DIFERENCIA */
 
     .difference {
       padding: 118px 46px;
@@ -703,8 +728,6 @@
       color: var(--muted);
     }
 
-    /* MANIFIESTO */
-
     .manifesto {
       min-height: 90vh;
       background: var(--ink);
@@ -755,8 +778,6 @@
       text-transform: uppercase;
       color: var(--sand);
     }
-
-    /* GALERÍA */
 
     .dual-gallery {
       padding: 120px 46px;
@@ -887,8 +908,6 @@
       text-transform: uppercase;
     }
 
-    /* CTA */
-
     .cta {
       padding: 126px 46px;
       background: #ffffff;
@@ -953,8 +972,6 @@
       }
     }
 
-    /* RESPONSIVE */
-
     @media (max-width: 1050px) {
       .nav {
         display: none;
@@ -972,11 +989,15 @@
         text-align: center;
       }
 
+      .hero-top {
+        max-width: 900px;
+      }
+
       .hero-logos-row {
         display: grid;
         grid-template-columns: minmax(150px, 1fr) 1px minmax(180px, 1fr);
         column-gap: 56px;
-        margin-bottom: 34px;
+        margin-bottom: 42px;
         width: min(760px, 100%);
       }
 
@@ -1043,11 +1064,16 @@
         padding-top: 112px;
       }
 
+      .hero-top {
+        padding-top: 18px;
+      }
+
       .universe-label {
         flex-direction: row;
         gap: 18px;
         letter-spacing: 0.24em;
         font-size: 10px;
+        margin-bottom: 34px;
       }
 
       .universe-label .divider-dot {
@@ -1088,6 +1114,25 @@
       .universe-card {
         padding: 26px;
         min-height: 660px;
+      }
+
+      .universe-number {
+        max-width: 64%;
+      }
+
+      .card-logo-wrap {
+        width: 84px;
+        height: 44px;
+      }
+
+      .card-logo-ap {
+        width: 66px;
+        max-height: 40px;
+      }
+
+      .card-logo-signature {
+        width: 84px;
+        max-height: 40px;
       }
 
       .hero-footer,
@@ -1177,7 +1222,14 @@
           <div>
             <div class="universe-kicker">
               <span class="universe-number">01 · LIVING CONTRACT / MOBILIARIO</span>
-              <span class="universe-symbol">ap</span>
+
+              <span class="card-logo-wrap">
+                <img 
+                  src="assets/images/ap_logo_2026.png" 
+                  alt="Imagotipo Living Contract Abraham Peyret"
+                  class="card-logo card-logo-ap"
+                />
+              </span>
             </div>
 
             <div class="universe-type">Universo funcional</div>
@@ -1218,7 +1270,14 @@
           <div>
             <div class="universe-kicker">
               <span class="universe-number">02 · DISEÑO DE AUTOR / EDICIÓN LIMITADA</span>
-              <span class="signature-symbol">ap</span>
+
+              <span class="card-logo-wrap">
+                <img 
+                  src="assets/images/firma_a_p.png" 
+                  alt="Firma Diseño de Autor Abraham Peyret"
+                  class="card-logo card-logo-signature"
+                />
+              </span>
             </div>
 
             <div class="universe-type">Universo autoral</div>
