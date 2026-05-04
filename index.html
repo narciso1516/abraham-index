@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Abraham Peyret | Living Contract & Diseño de Autor</title>
+
+  <style>
+    :root {
+      --white: #ffffff;
+      --living-bg: #f7f4ee;
+      --author-bg: #f3f3f3;
+      --ink: #111314;
+      --brown: #8a735f;
+      --sand: #c8b9a7;
+      --bone: #f7f4ee;
+      --line: rgba(17, 19, 20, 0.16);
+      --soft-line: rgba(17, 19, 20, 0.08);
+      --muted: rgba(17, 19, 20, 0.66);
+      --dark-muted: rgba(247, 244, 238, 0.68);
+      --sans: "Akzidenz Grotesk", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--white);
+      color: var(--ink);
+      font-family: var(--sans);
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--ink);
+      color: var(--bone);
+    }
+
+    .cursor-aura {
+      position: fixed;
+      width: 380px;
+      height: 380px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(
+        circle,
+        rgba(138, 115, 95, 0.16),
+        rgba(255, 255, 255, 0) 68%
+      );
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      mix-blend-mode: multiply;
+      transition: opacity 0.3s ease;
+    }
+
+    .cursor-dot {
+      position: fixed;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--ink);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 999;
+      opacity: 0.75;
+    }
+
+    .header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 82px;
+      padding: 22px 46px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--soft-line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      text-transform: uppercase;
+    }
+
+    .ap-mark {
+      width: 58px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      font-size: 30px;
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: -0.12em;
+      color: var(--ink);
+      transform: scaleX(1.3);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .brand-text strong {
+      font-size: 13px;
+      letter-spacing: 0.26em;
+      font-weight: 500;
+    }
+
+    .brand-text span {
+      font-size: 9px;
+      letter-spacing: 0.34em;
+      color: var(--brown);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+    }
+
+    .nav a {
+      position: relative;
+      padding-bottom: 7px;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 1px;
+      background: var(--ink);
+      transition: width 0.35s ease;
+    }
+
+    .nav a:hover::after {
+      width: 100%;
+    }
+
+    .nav .nav-button {
+      border: 1px solid var(--ink);
+      padding: 12px 16px;
+      transition: all 0.35s ease;
+    }
+
+    .nav .nav-button:hover {
+      background: var(--ink);
+      color: var(--bone);
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.38em;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: 500;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 16px 26px;
+      border: 1px solid var(--ink);
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.35s ease, transform 0.35s ease;
+    }
+
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--ink);
+      transform: translateY(100%);
+      transition: transform 0.35s ease;
+      z-index: -1;
+    }
+
+    .btn:hover {
+      color: var(--bone);
+      transform: translateY(-2px);
+    }
+
+    .btn:hover::before {
+      transform: translateY(0);
+    }
+
+    .btn.dark {
+      background: var(--ink);
+      color: var(--bone);
+    }
+
+    .btn.dark::before {
+      background: var(--bone);
+    }
+
+    .btn.dark:hover {
+      color: var(--ink);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(42px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 130px 46px 60px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 44px;
+      background: #ffffff;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 780px;
+      height: 780px;
+      border-radius: 50%;
+      right: -320px;
+      bottom: -300px;
+      background: radial-gradient(circle, rgba(138, 115, 95, 0.12), transparent 66%);
+      pointer-events: none;
+    }
+
+    .hero-top {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding-top: 12px;
+    }
+
+    .universe-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 42px;
+      font-size: 11px;
+      line-height: 1.2;
+      letter-spacing: 0.46em;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: 500;
+    }
+
+    .universe-label .divider-dot {
+      width: 1px;
+      height: 34px;
+      border-radius: 0;
+      background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(138, 115, 95, 0.75),
+        transparent
+      );
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-logos-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(70px, 10vw, 160px);
+      margin: 0 auto 46px;
+      width: 100%;
+      position: relative;
+    }
+
+    .hero-logos-row::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 10%;
+      width: 1px;
+      height: 80%;
+      background: linear-gradient(
+        180deg,
+        transparent,
+        rgba(17, 19, 20, 0.18),
+        transparent
+      );
+      transform: translateX(-50%);
+    }
+
+    .hero-logo {
+      display: block;
+      object-fit: contain;
+      filter: contrast(1.14);
+      opacity: 1;
+      transition: transform 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
+    }
+
+    .hero-logo:hover {
+      transform: translateY(-4px) scale(1.03);
+      filter: contrast(1.2);
+    }
+
+    .hero-logo-ap {
+      width: clamp(150px, 15vw, 260px);
+      max-height: 165px;
+    }
+
+    .hero-logo-signature {
+      width: clamp(230px, 23vw, 420px);
+      max-height: 165px;
+    }
+
+    .hero-title-text {
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-family: var(--sans);
+      font-size: clamp(38px, 5.4vw, 84px);
+      line-height: 1.02;
+      font-weight: 500;
+      letter-spacing: 0.045em;
+      text-transform: uppercase;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+
+    .hero h1 span {
+      display: block;
+      letter-spacing: 0.025em;
+    }
+
+    .hero-subtitle {
+      max-width: 880px;
+      margin: 34px auto 0;
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--muted);
+      letter-spacing: 0.01em;
+    }
+
+    .hero-universes {
+      position: relative;
+      z-index: 4;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      min-height: 460px;
+    }
+
+    .universe-card {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(17, 19, 20, 0.14);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 34px;
+      isolation: isolate;
+      transition: transform 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease;
+    }
+
+    .universe-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 38px 90px rgba(17, 19, 20, 0.16);
+      border-color: rgba(17, 19, 20, 0.28);
+    }
+
+    .universe-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.20;
+      transition: transform 0.65s ease, opacity 0.45s ease;
+      z-index: -2;
+    }
+
+    .universe-card:hover::before {
+      transform: scale(1.07);
+      opacity: 0.34;
+    }
+
+    .universe-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+    }
+
+    .universe-card.living {
+      background: var(--living-bg);
+    }
+
+    .universe-card.living::before {
+      background-image:
+        linear-gradient(to bottom, rgba(247,244,238,0.12), rgba(247,244,238,0.86)),
+        url("https://images.unsplash.com/photo-1600210491369-e753d80a41f3?auto=format&fit=crop&w=1400&q=90");
+    }
+
+    .universe-card.living::after {
+      background:
+        linear-gradient(to bottom, rgba(247, 244, 238, 0.64), rgba(247, 244, 238, 0.98)),
+        radial-gradient(circle at top left, rgba(138, 115, 95, 0.20), transparent 42%);
+    }
+
+    .universe-card.author {
+      background: var(--author-bg);
+    }
+
+    .universe-card.author::before {
+      background-image:
+        linear-gradient(to bottom, rgba(243,243,243,0.12), rgba(243,243,243,0.86)),
+        url("https://images.unsplash.com/photo-1617103996702-96ff29b1c467?auto=format&fit=crop&w=1400&q=90");
+    }
+
+    .universe-card.author::after {
+      background:
+        linear-gradient(to bottom, rgba(243, 243, 243, 0.64), rgba(243, 243, 243, 0.98)),
+        radial-gradient(circle at top right, rgba(17, 19, 20, 0.08), transparent 42%);
+    }
+
+    .universe-kicker {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .universe-number {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--brown);
+      font-weight: 500;
+    }
+
+    .universe-symbol {
+      font-size: 38px;
+      line-height: 0.8;
+      font-family: Georgia, "Times New Roman", serif;
+      opacity: 0.44;
+    }
+
+    .signature-symbol {
+      font-family: cursive;
+      font-size: 40px;
+      letter-spacing: -0.08em;
+      transform: rotate(-5deg);
+      opacity: 0.82;
+    }
+
+    .universe-type {
+      display: inline-flex;
+      margin-bottom: 22px;
+      padding: 9px 12px;
+      border: 1px solid rgba(17, 19, 20, 0.18);
+      background: rgba(255, 255, 255, 0.46);
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(17, 19, 20, 0.68);
+    }
+
+    .universe-card h2 {
+      font-size: clamp(34px, 4vw, 62px);
+      line-height: 1.02;
+      font-weight: 500;
+      letter-spacing: 0.018em;
+      text-transform: uppercase;
+      max-width: 680px;
+    }
+
+    .universe-card h2 span {
+      display: block;
+      margin-top: 8px;
+    }
+
+    .universe-lead {
+      margin-top: 30px;
+      max-width: 650px;
+      font-size: 17px;
+      line-height: 1.72;
+      color: rgba(17, 19, 20, 0.74);
+      letter-spacing: 0.005em;
+    }
+
+    .universe-note {
+      margin-top: 26px;
+      max-width: 620px;
+      padding: 18px 0 0;
+      border-top: 1px solid rgba(17, 19, 20, 0.18);
+      font-size: 13px;
+      line-height: 1.45;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brown);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 26px;
+      max-width: 620px;
+    }
+
+    .tag-row span {
+      padding: 9px 12px;
+      border: 1px solid rgba(17, 19, 20, 0.14);
+      background: rgba(255, 255, 255, 0.44);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(17, 19, 20, 0.66);
+    }
+
+    .universe-bottom {
+      padding-top: 24px;
+      border-top: 1px solid rgba(17, 19, 20, 0.16);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    .arrow-circle {
+      width: 48px;
+      height: 48px;
+      border: 1px solid var(--ink);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      transition: all 0.35s ease;
+    }
+
+    .universe-card:hover .arrow-circle {
+      background: var(--ink);
+      color: var(--bone);
+      transform: rotate(-35deg);
+    }
+
+    .hero-footer {
+      position: relative;
+      z-index: 4;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--brown);
+    }
+
+    .marquee {
+      background: #ffffff;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 28s linear infinite;
+    }
+
+    .marquee span {
+      padding: 22px 34px;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--brown);
+    }
+
+    .difference {
+      padding: 118px 46px;
+      background: #ffffff;
+    }
+
+    .section-heading {
+      max-width: 1050px;
+      margin-bottom: 70px;
+    }
+
+    .section-heading .eyebrow {
+      margin-bottom: 22px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(42px, 5.8vw, 88px);
+      line-height: 0.98;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .compare-card {
+      min-height: 440px;
+      padding: 34px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: background 0.35s ease, transform 0.35s ease;
+    }
+
+    .compare-card:first-child {
+      background: var(--living-bg);
+    }
+
+    .compare-card:last-child {
+      background: var(--author-bg);
+    }
+
+    .compare-card:hover {
+      transform: translateY(-4px);
+      background: #ffffff;
+    }
+
+    .compare-card small {
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--brown);
+    }
+
+    .compare-card h3 {
+      margin-top: 36px;
+      font-size: clamp(30px, 3.2vw, 48px);
+      line-height: 1.05;
+      font-weight: 500;
+      letter-spacing: 0.015em;
+      text-transform: uppercase;
+    }
+
+    .compare-card ul {
+      margin-top: 28px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .compare-card li {
+      list-style: none;
+      padding-top: 14px;
+      border-top: 1px solid rgba(17, 19, 20, 0.12);
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--muted);
+    }
+
+    .manifesto {
+      min-height: 90vh;
+      background: var(--ink);
+      color: var(--bone);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manifesto-panel {
+      padding: 120px 46px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .manifesto-panel:first-child {
+      border-right: 1px solid rgba(247, 244, 238, 0.12);
+    }
+
+    .manifesto .eyebrow {
+      color: var(--sand);
+      margin-bottom: 26px;
+    }
+
+    .manifesto h2 {
+      font-size: clamp(40px, 5.2vw, 78px);
+      line-height: 0.98;
+      letter-spacing: 0.025em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .manifesto p {
+      margin-top: 34px;
+      max-width: 690px;
+      font-size: 19px;
+      line-height: 1.78;
+      color: var(--dark-muted);
+    }
+
+    .manifesto-line {
+      margin-top: 44px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(247, 244, 238, 0.18);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--sand);
+    }
+
+    .dual-gallery {
+      padding: 120px 46px;
+      background: #ffffff;
+    }
+
+    .gallery-block {
+      margin-top: 60px;
+    }
+
+    .gallery-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 28px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 22px;
+      margin-bottom: 22px;
+    }
+
+    .gallery-title h3 {
+      font-size: clamp(30px, 3.6vw, 54px);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .gallery-title span {
+      font-size: 10px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--brown);
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr 1fr;
+      gap: 18px;
+    }
+
+    .image-card {
+      min-height: 420px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s ease;
+    }
+
+    .image-card:hover {
+      transform: scale(0.985);
+    }
+
+    .image-card.tall {
+      min-height: 560px;
+    }
+
+    .image-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(17, 19, 20, 0.58), transparent 60%);
+      z-index: 1;
+    }
+
+    .image-card::after {
+      content: "";
+      position: absolute;
+      inset: 16px;
+      border: 1px solid rgba(247, 244, 238, 0.28);
+      z-index: 2;
+      opacity: 0;
+      transform: scale(1.04);
+      transition: all 0.35s ease;
+    }
+
+    .image-card:hover::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .living-img-1 {
+      background-image: url("https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1400&q=90");
+    }
+
+    .living-img-2 {
+      background-image: url("https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1400&q=90");
+    }
+
+    .living-img-3 {
+      background-image: url("https://images.unsplash.com/photo-1615873968403-89e068629265?auto=format&fit=crop&w=1400&q=90");
+    }
+
+    .author-img-1 {
+      background-image: url("https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1400&q=90");
+    }
+
+    .author-img-2 {
+      background-image: url("https://images.unsplash.com/photo-1617103996702-96ff29b1c467?auto=format&fit=crop&w=1400&q=90");
+    }
+
+    .author-img-3 {
+      background-image: url("https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?auto=format&fit=crop&w=1400&q=90");
+    }
+
+    .image-caption {
+      position: absolute;
+      left: 28px;
+      bottom: 28px;
+      z-index: 3;
+      color: var(--bone);
+    }
+
+    .image-caption small {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 9px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(247, 244, 238, 0.72);
+    }
+
+    .image-caption strong {
+      display: block;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .cta {
+      padding: 126px 46px;
+      background: #ffffff;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta .eyebrow {
+      margin-bottom: 24px;
+    }
+
+    .cta h2 {
+      max-width: 1100px;
+      margin: 0 auto;
+      font-size: clamp(42px, 6vw, 92px);
+      line-height: 0.98;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .cta p {
+      max-width: 720px;
+      margin: 34px auto 44px;
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--muted);
+    }
+
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer {
+      padding: 38px 46px;
+      background: var(--ink);
+      color: var(--bone);
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    .footer span {
+      color: rgba(247, 244, 238, 0.68);
+    }
+
+    @keyframes marquee {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (max-width: 1050px) {
+      .nav {
+        display: none;
+      }
+
+      .hero-logos-row {
+        gap: 56px;
+        margin-bottom: 34px;
+      }
+
+      .hero-logo-ap {
+        width: 150px;
+      }
+
+      .hero-logo-signature {
+        width: 240px;
+      }
+
+      .hero-universes,
+      .compare-grid,
+      .manifesto,
+      .image-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .manifesto-panel:first-child {
+        border-right: none;
+        border-bottom: 1px solid rgba(247, 244, 238, 0.12);
+      }
+
+      .header,
+      .hero,
+      .difference,
+      .manifesto-panel,
+      .dual-gallery,
+      .cta,
+      .footer {
+        padding-left: 28px;
+        padding-right: 28px;
+      }
+
+      .hero {
+        padding-top: 122px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .header {
+        height: 76px;
+        padding-top: 18px;
+        padding-bottom: 18px;
+      }
+
+      .brand-text strong {
+        font-size: 12px;
+        letter-spacing: 0.18em;
+      }
+
+      .brand-text span {
+        font-size: 8px;
+        letter-spacing: 0.22em;
+      }
+
+      .ap-mark {
+        width: 42px;
+        font-size: 26px;
+      }
+
+      .hero {
+        padding-top: 112px;
+      }
+
+      .universe-label {
+        flex-direction: row;
+        gap: 18px;
+        letter-spacing: 0.24em;
+        font-size: 10px;
+      }
+
+      .universe-label .divider-dot {
+        width: 1px;
+        height: 28px;
+      }
+
+      .hero-logos-row {
+        flex-direction: column;
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+
+      .hero-logos-row::after {
+        display: none;
+      }
+
+      .hero-logo-ap {
+        width: 130px;
+      }
+
+      .hero-logo-signature {
+        width: 220px;
+      }
+
+      .hero h1 {
+        font-size: clamp(32px, 10vw, 52px);
+        line-height: 1.05;
+        letter-spacing: 0.025em;
+      }
+
+      .hero-subtitle {
+        font-size: 16px;
+      }
+
+      .universe-card {
+        padding: 26px;
+        min-height: 660px;
+      }
+
+      .hero-footer,
+      .gallery-title,
+      .footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cta-actions {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .cursor-aura,
+      .cursor-dot {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="cursor-aura" id="cursorAura"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <header class="header">
+    <a href="#" class="brand" aria-label="Inicio Abraham Peyret">
+      <div class="ap-mark">ap</div>
+
+      <div class="brand-text">
+        <strong>Abraham Peyret</strong>
+        <span>Design · Hecho en México</span>
+      </div>
+    </a>
+
+    <nav class="nav">
+      <a href="#living">Living Contract</a>
+      <a href="#autor">Diseño de Autor</a>
+      <a href="#diferencia">Universos</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto" class="nav-button">Contacto</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-top reveal">
+        <div class="universe-label">
+          <span>Living Contract</span>
+          <span class="divider-dot"></span>
+          <span>Diseño de Autor</span>
+        </div>
+
+        <div class="hero-logos-row">
+          <img 
+            src="assets/images/ap_logo_2026.png" 
+            alt="Imagotipo Abraham Peyret AP"
+            class="hero-logo hero-logo-ap"
+          />
+
+          <img 
+            src="assets/images/firma_a_p.png" 
+            alt="Firma Abraham Peyret"
+            class="hero-logo hero-logo-signature"
+          />
+        </div>
+
+        <div class="hero-title-text">
+          <h1>
+            Dos universos.
+            <span>Una visión de diseño.</span>
+          </h1>
+        </div>
+
+        <p class="hero-subtitle">
+          Abraham Peyret articula dos líneas complementarias: mobiliario residencial
+          de alto desempeño para espacios de uso intensivo y piezas de autor con
+          identidad, narrativa y edición limitada.
+        </p>
+      </div>
+
+      <div class="hero-universes">
+
+        <a href="#living" class="universe-card living reveal" id="living">
+          <div>
+            <div class="universe-kicker">
+              <span class="universe-number">01 · LIVING CONTRACT / MOBILIARIO</span>
+              <span class="universe-symbol">ap</span>
+            </div>
+
+            <div class="universe-type">Universo funcional</div>
+
+            <h2>
+              Living Contract.
+              <span>Mobiliario para vivirlo diario.</span>
+              <span>Resistencia para uso intensivo.</span>
+            </h2>
+
+            <p class="universe-lead">
+              Piezas con calidez residencial y desempeño contract: diseñadas para casas,
+              departamentos, Airbnb, desarrollos, hospitality y espacios que necesitan
+              belleza, durabilidad y fácil mantenimiento.
+            </p>
+
+            <div class="universe-note">
+              Se ve como casa. Resiste como hotel.
+            </div>
+
+            <div class="tag-row">
+              <span>Residencial</span>
+              <span>Hospitality</span>
+              <span>Airbnb</span>
+              <span>Uso intensivo</span>
+              <span>Alta durabilidad</span>
+              <span>Producción a medida</span>
+            </div>
+          </div>
+
+          <div class="universe-bottom">
+            <span>Explorar Living Contract</span>
+            <span class="arrow-circle">→</span>
+          </div>
+        </a>
+
+        <a href="#autor" class="universe-card author reveal" id="autor">
+          <div>
+            <div class="universe-kicker">
+              <span class="universe-number">02 · DISEÑO DE AUTOR / EDICIÓN LIMITADA</span>
+              <span class="signature-symbol">ap</span>
+            </div>
+
+            <div class="universe-type">Universo autoral</div>
+
+            <h2>
+              Diseño de Autor.
+              <span>Piezas con identidad.</span>
+              <span>Objetos con firma.</span>
+            </h2>
+
+            <p class="universe-lead">
+              Una línea de piezas únicas, edición limitada o producción cuidada, donde
+              cada objeto expresa una visión propia: forma, materialidad, proporción,
+              narrativa y carácter coleccionable.
+            </p>
+
+            <div class="universe-note">
+              No es solo mobiliario. Es diseño con postura.
+            </div>
+
+            <div class="tag-row">
+              <span>Edición limitada</span>
+              <span>Pieza única</span>
+              <span>Narrativa</span>
+              <span>Autoría</span>
+              <span>Materialidad</span>
+              <span>Coleccionable</span>
+            </div>
+          </div>
+
+          <div class="universe-bottom">
+            <span>Explorar Diseño de Autor</span>
+            <span class="arrow-circle">→</span>
+          </div>
+        </a>
+
+      </div>
+
+      <div class="hero-footer">
+        <span>HECHO EN MÉXICO</span>
+        <span>www.abrahampeyret.art</span>
+        <span>CIUDAD · EDICIÓN LIMITADA</span>
+      </div>
+    </section>
+
+    <section class="marquee" aria-label="Conceptos de marca">
+      <div class="marquee-track">
+        <span>Living Contract</span>
+        <span>Residential-grade contract furniture</span>
+        <span>Diseño de Autor</span>
+        <span>Hecho en México</span>
+        <span>Ciudad</span>
+        <span>Edición Limitada</span>
+        <span>Materialidad</span>
+        <span>Living Contract</span>
+        <span>Residential-grade contract furniture</span>
+        <span>Diseño de Autor</span>
+        <span>Hecho en México</span>
+        <span>Ciudad</span>
+        <span>Edición Limitada</span>
+        <span>Materialidad</span>
+      </div>
+    </section>
+
+    <section class="difference" id="diferencia">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Dos universos</p>
+
+        <h2>
+          Dos líneas distintas.
+          Una misma firma de diseño.
+        </h2>
+      </div>
+
+      <div class="compare-grid">
+        <article class="compare-card reveal">
+          <div>
+            <small>Living Contract</small>
+            <h3>Mobiliario para vivir, usar y resistir.</h3>
+
+            <ul>
+              <li>Para residencias, desarrollos, Airbnb, hospitality y renta.</li>
+              <li>Materiales de mayor resistencia y acabados de fácil mantenimiento.</li>
+              <li>Ensambles reforzados, diseño atemporal y posibilidad de repetición.</li>
+              <li>La estética se mantiene doméstica, pero el desempeño es profesional.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="compare-card reveal">
+          <div>
+            <small>Diseño de Autor</small>
+            <h3>Piezas con lenguaje, narrativa y firma conceptual.</h3>
+
+            <ul>
+              <li>Para clientes, interioristas, galerías y coleccionistas.</li>
+              <li>Identidad coherente en formas, materiales, proporciones y detalle.</li>
+              <li>Exploración formal y material con producción cuidada o limitada.</li>
+              <li>No responde a una solución genérica: parte de una postura de diseño.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="manifesto">
+      <div class="manifesto-panel reveal">
+        <p class="eyebrow">Universo 01</p>
+
+        <h2>
+          Función,
+          resistencia
+          y calidez.
+        </h2>
+
+        <p>
+          Living Contract traduce el estándar técnico del mobiliario contract
+          al espacio residencial. Su valor está en resolver proyectos con belleza,
+          permanencia y desempeño real.
+        </p>
+
+        <div class="manifesto-line">
+          Imagotipo / Living Contract / Mobiliario
+        </div>
+      </div>
+
+      <div class="manifesto-panel reveal">
+        <p class="eyebrow">Universo 02</p>
+
+        <h2>
+          Autoría,
+          forma
+          y edición.
+        </h2>
+
+        <p>
+          Diseño de Autor permite que Abraham Peyret aparezca como firma:
+          una mirada reconocible sobre el objeto, la proporción, la materia
+          y la narrativa detrás de cada pieza.
+        </p>
+
+        <div class="manifesto-line">
+          Firma / Diseño de Autor / Edición Limitada
+        </div>
+      </div>
+    </section>
+
+    <section class="dual-gallery" id="galeria">
+      <div class="section-heading reveal">
+        <p class="eyebrow">Galería dividida</p>
+
+        <h2>
+          Dos lecturas visuales.
+          Un mismo criterio estético.
+        </h2>
+      </div>
+
+      <div class="gallery-block reveal">
+        <div class="gallery-title">
+          <h3>Living Contract / Mobiliario</h3>
+          <span>Residencial · Hospitality · Alto desempeño</span>
+        </div>
+
+        <div class="image-grid">
+          <div class="image-card living-img-1">
+            <div class="image-caption">
+              <small>Living Contract</small>
+              <strong>Interiores habitables</strong>
+            </div>
+          </div>
+
+          <div class="image-card living-img-2 tall">
+            <div class="image-caption">
+              <small>Alto desempeño</small>
+              <strong>Uso intensivo</strong>
+            </div>
+          </div>
+
+          <div class="image-card living-img-3">
+            <div class="image-caption">
+              <small>Mobiliario</small>
+              <strong>Materialidad cálida</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-block reveal">
+        <div class="gallery-title">
+          <h3>Diseño de Autor / Edición Limitada</h3>
+          <span>Firma · Narrativa · Pieza coleccionable</span>
+        </div>
+
+        <div class="image-grid">
+          <div class="image-card author-img-1">
+            <div class="image-caption">
+              <small>Diseño de Autor</small>
+              <strong>Pieza con postura</strong>
+            </div>
+          </div>
+
+          <div class="image-card author-img-2 tall">
+            <div class="image-caption">
+              <small>Ciudad</small>
+              <strong>Edición limitada</strong>
+            </div>
+          </div>
+
+          <div class="image-card author-img-3">
+            <div class="image-caption">
+              <small>Objeto</small>
+              <strong>Forma y narrativa</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta" id="contacto">
+      <div class="cta-content reveal">
+        <p class="eyebrow">Contacto estratégico</p>
+
+        <h2>
+          ¿Buscas un proyecto funcional o una pieza con firma?
+        </h2>
+
+        <p>
+          La página convierte desde la intención del visitante:
+          solicitar mobiliario Living Contract o consultar piezas de Diseño de Autor
+          en edición limitada.
+        </p>
+
+        <div class="cta-actions">
+          <a href="mailto:contacto@abrahampeyret.art" class="btn dark">
+            Solicitar Living Contract
+          </a>
+
+          <a href="mailto:contacto@abrahampeyret.art" class="btn">
+            Consultar Diseño de Autor
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span>© Abraham Peyret</span>
+    <span>HECHO EN MÉXICO</span>
+    <span>www.abrahampeyret.art</span>
+  </footer>
+
+  <script>
+    const aura = document.getElementById("cursorAura");
+    const dot = document.getElementById("cursorDot");
+
+    window.addEventListener("mousemove", function(event) {
+      const x = event.clientX;
+      const y = event.clientY;
+
+      aura.style.left = x + "px";
+      aura.style.top = y + "px";
+
+      dot.style.left = x + "px";
+      dot.style.top = y + "px";
+    });
+
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+      function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+    revealElements.forEach(function(element) {
+      observer.observe(element);
+    });
+
+    const cards = document.querySelectorAll(".universe-card");
+
+    cards.forEach(function(card) {
+      card.addEventListener("mousemove", function(event) {
+        const rect = card.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        const rotateY = ((x / rect.width) - 0.5) * 5;
+        const rotateX = ((y / rect.height) - 0.5) * -5;
+
+        card.style.transform =
+          "translateY(-10px) rotateX(" + rotateX + "deg) rotateY(" + rotateY + "deg)";
+      });
+
+      card.addEventListener("mouseleave", function() {
+        card.style.transform = "translateY(0) rotateX(0) rotateY(0)";
+      });
+    });
+  </script>
+
+</body>
+</html>
