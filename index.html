@@ -78,16 +78,18 @@
       opacity: 0.75;
     }
 
+    /* HEADER */
+
     .header {
       position: fixed;
       inset: 0 0 auto 0;
-      height: 82px;
-      padding: 22px 46px;
+      min-height: 88px;
+      padding: 24px 56px;
       z-index: 100;
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(260px, 0.9fr) auto minmax(260px, 0.9fr);
       align-items: center;
-      justify-content: space-between;
-      background: rgba(255, 255, 255, 0.84);
+      background: rgba(255, 255, 255, 0.88);
       backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--soft-line);
     }
@@ -96,24 +98,25 @@
       display: flex;
       align-items: center;
       text-transform: uppercase;
+      justify-self: start;
     }
 
     .brand-text {
       display: flex;
       flex-direction: column;
-      gap: 7px;
+      gap: 8px;
     }
 
     .brand-text strong {
       font-size: 15px;
-      letter-spacing: 0.32em;
+      letter-spacing: 0.34em;
       font-weight: 600;
       line-height: 1;
     }
 
     .brand-text span {
       font-size: 10px;
-      letter-spacing: 0.34em;
+      letter-spacing: 0.36em;
       color: var(--brown);
       line-height: 1;
     }
@@ -121,15 +124,18 @@
     .nav {
       display: flex;
       align-items: center;
-      gap: 30px;
+      justify-content: center;
+      gap: 42px;
       font-size: 10px;
       letter-spacing: 0.24em;
       text-transform: uppercase;
+      justify-self: center;
     }
 
     .nav a {
       position: relative;
       padding-bottom: 7px;
+      white-space: nowrap;
     }
 
     .nav a::after {
@@ -149,7 +155,7 @@
 
     .nav .nav-button {
       border: 1px solid var(--ink);
-      padding: 12px 16px;
+      padding: 13px 18px;
       transition: all 0.35s ease;
     }
 
@@ -224,9 +230,11 @@
       transform: translateY(0);
     }
 
+    /* HERO */
+
     .hero {
       min-height: 100vh;
-      padding: 130px 46px 60px;
+      padding: 138px 46px 60px;
       position: relative;
       overflow: hidden;
       display: grid;
@@ -285,29 +293,28 @@
     }
 
     .hero-logos-row {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) 1px minmax(220px, 1fr);
       align-items: center;
-      justify-content: center;
-      gap: clamp(70px, 10vw, 160px);
-      margin: 0 auto 46px;
-      width: 100%;
+      justify-items: center;
+      column-gap: clamp(44px, 7vw, 110px);
+      margin: 0 auto 52px;
+      width: min(980px, 100%);
       position: relative;
     }
 
     .hero-logos-row::after {
       content: "";
-      position: absolute;
-      left: 50%;
-      top: 10%;
       width: 1px;
-      height: 80%;
+      height: 128px;
+      grid-column: 2;
+      grid-row: 1;
       background: linear-gradient(
         180deg,
         transparent,
-        rgba(17, 19, 20, 0.18),
+        rgba(17, 19, 20, 0.22),
         transparent
       );
-      transform: translateX(-50%);
     }
 
     .hero-logo {
@@ -324,13 +331,15 @@
     }
 
     .hero-logo-ap {
-      width: clamp(150px, 15vw, 260px);
-      max-height: 165px;
+      width: clamp(170px, 15vw, 250px);
+      max-height: 160px;
+      grid-column: 1;
     }
 
     .hero-logo-signature {
-      width: clamp(230px, 23vw, 420px);
-      max-height: 165px;
+      width: clamp(250px, 23vw, 390px);
+      max-height: 160px;
+      grid-column: 3;
     }
 
     .hero-title-text {
@@ -361,6 +370,8 @@
       color: var(--muted);
       letter-spacing: 0.01em;
     }
+
+    /* TARJETAS */
 
     .hero-universes {
       position: relative;
@@ -583,6 +594,8 @@
       color: var(--brown);
     }
 
+    /* MARQUEE */
+
     .marquee {
       background: #ffffff;
       border-top: 1px solid var(--line);
@@ -603,6 +616,8 @@
       text-transform: uppercase;
       color: var(--brown);
     }
+
+    /* DIFERENCIA */
 
     .difference {
       padding: 118px 46px;
@@ -688,6 +703,8 @@
       color: var(--muted);
     }
 
+    /* MANIFIESTO */
+
     .manifesto {
       min-height: 90vh;
       background: var(--ink);
@@ -738,6 +755,8 @@
       text-transform: uppercase;
       color: var(--sand);
     }
+
+    /* GALERÍA */
 
     .dual-gallery {
       padding: 120px 46px;
@@ -868,6 +887,8 @@
       text-transform: uppercase;
     }
 
+    /* CTA */
+
     .cta {
       padding: 126px 46px;
       background: #ffffff;
@@ -932,14 +953,31 @@
       }
     }
 
+    /* RESPONSIVE */
+
     @media (max-width: 1050px) {
       .nav {
         display: none;
       }
 
+      .header {
+        min-height: 82px;
+        padding: 22px 34px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .brand {
+        justify-self: center;
+        text-align: center;
+      }
+
       .hero-logos-row {
-        gap: 56px;
+        display: grid;
+        grid-template-columns: minmax(150px, 1fr) 1px minmax(180px, 1fr);
+        column-gap: 56px;
         margin-bottom: 34px;
+        width: min(760px, 100%);
       }
 
       .hero-logo-ap {
@@ -980,20 +1018,25 @@
 
     @media (max-width: 640px) {
       .header {
-        height: auto;
-        min-height: 76px;
-        padding-top: 18px;
-        padding-bottom: 18px;
+        min-height: 78px;
+        padding: 18px 26px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .brand {
+        justify-self: center;
+        text-align: center;
       }
 
       .brand-text strong {
         font-size: 12px;
-        letter-spacing: 0.18em;
+        letter-spacing: 0.22em;
       }
 
       .brand-text span {
         font-size: 8px;
-        letter-spacing: 0.22em;
+        letter-spacing: 0.24em;
       }
 
       .hero {
@@ -1013,9 +1056,11 @@
       }
 
       .hero-logos-row {
+        display: flex;
         flex-direction: column;
-        gap: 24px;
-        margin-bottom: 32px;
+        gap: 28px;
+        margin-bottom: 36px;
+        width: 100%;
       }
 
       .hero-logos-row::after {
@@ -1023,11 +1068,11 @@
       }
 
       .hero-logo-ap {
-        width: 130px;
+        width: 140px;
       }
 
       .hero-logo-signature {
-        width: 220px;
+        width: 230px;
       }
 
       .hero h1 {
@@ -1077,15 +1122,13 @@
     <a href="#" class="brand" aria-label="Inicio Abraham Peyret">
       <div class="brand-text">
         <strong>Abraham Peyret</strong>
-        <span>Design · Hecho en México</span>
+        <span>Mobiliario · Hecho en México</span>
       </div>
     </a>
 
     <nav class="nav">
       <a href="#living">Living Contract</a>
       <a href="#autor">Diseño de Autor</a>
-      <a href="#diferencia">Universos</a>
-      <a href="#galeria">Galería</a>
       <a href="#contacto" class="nav-button">Contacto</a>
     </nav>
   </header>
